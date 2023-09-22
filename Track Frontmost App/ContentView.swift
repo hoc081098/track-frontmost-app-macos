@@ -17,16 +17,21 @@ struct ContentView: View {
         VStack(alignment: .leading) {
           Text("\(info.bundleIdentifier): \(info.name)")
             .font(.title)
-          
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .multilineTextAlignment(.leading)
+            .lineLimit(3)
+
           Spacer().frame(height: 8)
-          
+
           Text("\(info.date)")
             .font(.title3)
+            .frame(maxWidth: .infinity, minHeight: 30, alignment: .leading)
+            .multilineTextAlignment(.leading)
+            .lineLimit(3)
         }
-        .padding(8)
+          .padding(8)
       }
-    }.frame(maxWidth: .infinity, maxHeight: .infinity)
-      .listStyle(.sidebar)
+    }.listStyle(.sidebar)
   }
 }
 

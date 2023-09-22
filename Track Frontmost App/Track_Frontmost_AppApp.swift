@@ -15,9 +15,7 @@ struct Track_Frontmost_AppApp: App {
     WindowGroup {
       ContentView(viewModel: .init())
         .frame(
-          minWidth: 600,
           maxWidth: .infinity,
-          minHeight: 600,
           maxHeight: .infinity
         )
         .navigationTitle("Start time: \(startTime)")
