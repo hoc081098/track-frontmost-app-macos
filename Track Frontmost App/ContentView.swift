@@ -8,14 +8,30 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        Text("Hello, world!")
-            .padding()
+  @ObservedObject
+  var viewModel: FontMostAppInfoViewModel
+
+  var body: some View {
+    List {
+      ForEach(viewModel.infos) { info in
+        VStack(alignment: .leading) {
+          Text("\(info.bundleIdentifier): \(info.name)")
+            .font(.title)
+          
+          Spacer().frame(height: 8)
+          
+          Text("\(info.date)")
+            .font(.title3)
+          
+          Spacer().frame(height: 8)
+        }
+      }
     }
+  }
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+  static var previews: some View {
+    ContentView(viewModel: .init())
+  }
 }

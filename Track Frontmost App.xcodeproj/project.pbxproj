@@ -11,6 +11,8 @@
 		354DDDE02ABDB38E00F7E899 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354DDDDF2ABDB38E00F7E899 /* ContentView.swift */; };
 		354DDDE22ABDB39500F7E899 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 354DDDE12ABDB39500F7E899 /* Assets.xcassets */; };
 		354DDDE52ABDB39500F7E899 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 354DDDE42ABDB39500F7E899 /* Preview Assets.xcassets */; };
+		354DDDED2ABDB4F700F7E899 /* FontMostAppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354DDDEC2ABDB4F700F7E899 /* FontMostAppInfo.swift */; };
+		354DDDEF2ABDB53A00F7E899 /* FontMostAppInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354DDDEE2ABDB53A00F7E899 /* FontMostAppInfoViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,8 @@
 		354DDDE12ABDB39500F7E899 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		354DDDE42ABDB39500F7E899 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		354DDDE62ABDB39500F7E899 /* Track_Frontmost_App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Track_Frontmost_App.entitlements; sourceTree = "<group>"; };
+		354DDDEC2ABDB4F700F7E899 /* FontMostAppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontMostAppInfo.swift; sourceTree = "<group>"; };
+		354DDDEE2ABDB53A00F7E899 /* FontMostAppInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontMostAppInfoViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,8 @@
 				354DDDE12ABDB39500F7E899 /* Assets.xcassets */,
 				354DDDE62ABDB39500F7E899 /* Track_Frontmost_App.entitlements */,
 				354DDDE32ABDB39500F7E899 /* Preview Content */,
+				354DDDEC2ABDB4F700F7E899 /* FontMostAppInfo.swift */,
+				354DDDEE2ABDB53A00F7E899 /* FontMostAppInfoViewModel.swift */,
 			);
 			path = "Track Frontmost App";
 			sourceTree = "<group>";
@@ -139,8 +145,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				354DDDEF2ABDB53A00F7E899 /* FontMostAppInfoViewModel.swift in Sources */,
 				354DDDE02ABDB38E00F7E899 /* ContentView.swift in Sources */,
 				354DDDDE2ABDB38E00F7E899 /* Track_Frontmost_AppApp.swift in Sources */,
+				354DDDED2ABDB4F700F7E899 /* FontMostAppInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

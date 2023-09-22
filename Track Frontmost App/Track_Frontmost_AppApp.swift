@@ -7,11 +7,20 @@
 
 import SwiftUI
 
+private let startTime = Date()
+
 @main
 struct Track_Frontmost_AppApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
+  var body: some Scene {
+    WindowGroup {
+      ContentView(viewModel: .init())
+        .frame(
+          minWidth: 800,
+          maxWidth: .infinity,
+          minHeight: 600,
+          maxHeight: .infinity
+        )
+        .navigationTitle("Start time: \(startTime)")
     }
+  }
 }
