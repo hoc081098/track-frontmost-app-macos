@@ -1,5 +1,5 @@
 //
-//  FontMostAppInfo.swift
+//  FrontMostAppInfo.swift
 //  Track Frontmost App
 //
 //  Created by Hoc Nguyen T. on 9/22/23.
@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct FontMostAppInfo {
+struct FrontMostAppInfo {
   let bundleIdentifier: String
   let name: String
   let date: Date
 }
 
-extension FontMostAppInfo: Equatable, Hashable { }
+extension FrontMostAppInfo: Equatable, Hashable { }
 
-extension FontMostAppInfo: Identifiable {
+extension FrontMostAppInfo: Identifiable {
   var id: String { bundleIdentifier }
 }

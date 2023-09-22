@@ -1,5 +1,5 @@
 //
-//  FontMostAppInfoViewModel.swift
+//  FrontMostAppInfoViewModel.swift
 //  Track Frontmost App
 //
 //  Created by Hoc Nguyen T. on 9/22/23.
@@ -12,31 +12,30 @@ import AppKit
 private let currentAppBundleIdentifier = Bundle.main.bundleIdentifier!
 
 @MainActor
-class FontMostAppInfoViewModel: ObservableObject {
+class FrontMostAppInfoViewModel: ObservableObject {
   @Published
-  private(set) var infos = [FontMostAppInfo]()
+  private(set) var infos = [FrontMostAppInfo]()
   
   init() {
     print("currentAppBundleIdentifier=\(currentAppBundleIdentifier)")
 
     NSWorkspace.shared
       .publisher(for: \.frontmostApplication)
-      .compactMap { (appInfo: NSRunningApplication?) -> FontMostAppInfo? in
+      .compactMap { (appInfo: NSRunningApplication?) -> FrontMostAppInfo? in
         guard
           let appInfo = appInfo,
           appInfo.bundleIdentifier != currentAppBundleIdentifier,
-          let bundleIdentifier = appInfo.bundleIdentifier,
-          let localizedName = appInfo.localizedName
+          let bundleIdentifier = appInfo.bundleIdentifier
         else { return nil }
         
-        return FontMostAppInfo(
+        return FrontMostAppInfo(
           bundleIdentifier: bundleIdentifier,
-          name: localizedName,
+          name: appInfo.localizedName ?? "Unkown name 🥺",
           date: Date()
         )
       }
-      .scan([FontMostAppInfo]()) { state, appInfo in
-        var newState = [FontMostAppInfo]()
+      .scan(infos) { state, appInfo in
+        var newState = [FrontMostAppInfo]()
         newState.reserveCapacity(state.count + 1)
         
         state.forEach {

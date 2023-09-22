@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
   @ObservedObject
-  var viewModel: FontMostAppInfoViewModel
+  var viewModel: FrontMostAppInfoViewModel
 
   var body: some View {
     List {
@@ -22,11 +22,11 @@ struct ContentView: View {
           
           Text("\(info.date)")
             .font(.title3)
-          
-          Spacer().frame(height: 8)
         }
+        .padding(8)
       }
-    }
+    }.frame(maxWidth: .infinity, maxHeight: .infinity)
+      .listStyle(.sidebar)
   }
 }
 
