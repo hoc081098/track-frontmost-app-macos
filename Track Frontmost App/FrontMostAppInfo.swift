@@ -6,15 +6,25 @@
 //
 
 import Foundation
+import AppKit
 
 struct FrontMostAppInfo {
   let bundleIdentifier: String
   let name: String
   let date: Date
+  let totalUseTimeMs: TimeInterval
 }
 
 extension FrontMostAppInfo: Equatable, Hashable { }
 
 extension FrontMostAppInfo: Identifiable {
   var id: String { bundleIdentifier }
+}
+
+extension FrontMostAppInfo {
+  var icon: NSImage? {
+    NSRunningApplication
+      .runningApplications(withBundleIdentifier: bundleIdentifier)
+      .first?.icon
+  }
 }

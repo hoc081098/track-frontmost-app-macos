@@ -15,38 +15,87 @@ private let currentAppBundleIdentifier = Bundle.main.bundleIdentifier!
 class FrontMostAppInfoViewModel: ObservableObject {
   @Published
   private(set) var infos = [FrontMostAppInfo]()
-  
+
   init() {
     print("currentAppBundleIdentifier=\(currentAppBundleIdentifier)")
 
     NSWorkspace.shared
       .publisher(for: \.frontmostApplication)
-      .compactMap { (appInfo: NSRunningApplication?) -> FrontMostAppInfo? in
-        guard
-          let appInfo = appInfo,
-          appInfo.bundleIdentifier != currentAppBundleIdentifier,
-          let bundleIdentifier = appInfo.bundleIdentifier
+      .compactMap { (appInfo: NSRunningApplication?) -> (bundleIdentifier: String, name: String, date: Date)? in
+      guard
+        let appInfo = appInfo,
+        let bundleIdentifier = appInfo.bundleIdentifier
         else { return nil }
-        
-        return FrontMostAppInfo(
-          bundleIdentifier: bundleIdentifier,
-          name: appInfo.localizedName ?? "Unkown name 🥺",
-          date: Date()
-        )
-      }
-      .scan(infos) { state, appInfo in
-        var newState = [FrontMostAppInfo]()
-        newState.reserveCapacity(state.count + 1)
-        
-        state.forEach {
-          if $0.bundleIdentifier != appInfo.bundleIdentifier {
-            newState.append($0)
-          }
-        }
-        newState.append(appInfo)
-        
-        return newState
-      }
+
+      return (
+        bundleIdentifier,
+        appInfo.localizedName ?? "Unknown name 🥺",
+        Date()
+      )
+    }
+      .scan(infos, reduce)
       .assign(to: &$infos)
   }
+}
+
+private func reduce(
+  state: [FrontMostAppInfo],
+  newItem: (bundleIdentifier: String, name: String, date: Date)
+) -> [FrontMostAppInfo] {
+  if newItem.bundleIdentifier == currentAppBundleIdentifier {
+    var newState = state
+    if let last = state.last {
+      newState[newState.count - 1] = FrontMostAppInfo(
+        bundleIdentifier: last.bundleIdentifier,
+        name: last.name,
+        date: last.date,
+        totalUseTimeMs: last.totalUseTimeMs + last.date.distance(to: newItem.date)
+      )
+    }
+    return newState
+  }
+
+  var newState = [FrontMostAppInfo]()
+  newState.reserveCapacity(state.count + 1)
+
+  if !state.isEmpty {
+    var existing: FrontMostAppInfo?
+
+    state.forEach {
+      if $0.bundleIdentifier != newItem.bundleIdentifier {
+        newState.append($0)
+      } else {
+        existing = $0
+      }
+    }
+
+    if let last = newState.last, last.bundleIdentifier != existing?.bundleIdentifier {
+      newState[newState.count - 1] = FrontMostAppInfo(
+        bundleIdentifier: last.bundleIdentifier,
+        name: last.name,
+        date: last.date,
+        totalUseTimeMs: last.totalUseTimeMs + last.date.distance(to: newItem.date)
+      )
+    }
+
+    newState.append(
+      FrontMostAppInfo(
+        bundleIdentifier: newItem.bundleIdentifier,
+        name: newItem.name,
+        date: newItem.date,
+        totalUseTimeMs: existing?.totalUseTimeMs ?? 0
+      )
+    )
+  } else {
+    newState.append(
+      FrontMostAppInfo(
+        bundleIdentifier: newItem.bundleIdentifier,
+        name: newItem.name,
+        date: newItem.date,
+        totalUseTimeMs: 0
+      )
+    )
+  }
+
+  return newState
 }
